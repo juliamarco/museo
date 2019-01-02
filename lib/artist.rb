@@ -14,4 +14,5 @@ class Artist
     @country = attributes[:country]
   end
 
+
 end
