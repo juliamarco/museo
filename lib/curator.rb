@@ -1,5 +1,6 @@
 require './lib/photograph'
 require './lib/artist'
+require 'csv'
 
 class Curator
 
@@ -64,8 +65,31 @@ class Curator
     end
   end
 
+  def load_photographs(path)
+    CSV.read(path, headers: true, header_converters: :symbol).each do |row|
+      attributes = {
+                    :id => row[0],
+                    :name => row[1],
+                    :artist_id => row[2],
+                    :year => row[3]
+                  }
+    add_photograph(attributes)
+    end
+    return photographs
+  end
 
-
-
+  def load_artists(path)
+    CSV.read(path, headers: true, header_converters: :symbol).each do |row|
+      attributes = {
+                    :id => row[0],
+                    :name => row[1],
+                    :born => row[2],
+                    :died => row[3],
+                    :country => row[4]
+                  }
+    add_artist(attributes)
+    end
+    return artists
+  end
 
 end
